@@ -135,6 +135,19 @@ def fetch_uspto_patents(query, max_results=100):
 uspto_patents = fetch_uspto_patents("water purification")
 pd.DataFrame(uspto_patents).to_csv("data/patents/uspto_patents.csv", index=False)
 
+# Another option for USPTO Open Data API 
+import requests
+
+url = "https://api.patentsview.org/patents/query"
+params = {
+    "q": '{"_gte":{"patent_date":"2023-01-01"}}',
+    "f": '["patent_number", "patent_title", "patent_date", "inventor_last_name"]'
+}
+
+response = requests.get(url, params=params)
+data = response.json()
+print(data)
+
 # Google Patents (Scraping example)
 from bs4 import BeautifulSoup
 
